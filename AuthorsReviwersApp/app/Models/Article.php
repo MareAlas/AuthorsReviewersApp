@@ -12,6 +12,12 @@ class Article extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'title',
+        'content',
+        'status'
+    ];
+
     /**
      * @return BelongsToMany
     */
@@ -25,6 +31,6 @@ class Article extends Model
     */
     public function reviewers(): BelongsToMany
     {
-        return $this->belongsToMany(Reviewer::class, 'reviewrs_articles', 'reviewer_id', 'article_id');
+        return $this->belongsToMany(Reviewer::class, 'reviewers_articles', 'article_id', 'reviewer_id');
     }
 }
