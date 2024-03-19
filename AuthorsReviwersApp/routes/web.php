@@ -17,6 +17,8 @@ Route::middleware('auth')->group(function () {
     Route::put('/articles/{article}/approve', [ReviewerDashboardController::class, 'approveArticle'])->name('article.approve');
     Route::put('/articles/{article}/reject', [ReviewerDashboardController::class, 'rejectArticle'])->name('article.reject');
     Route::post('/articles/{article}/publish', [ReviewerDashboardController::class, 'publishArticle'])->name('articles.publish');
+    Route::get('/reviewer-statistics', 'ReviewerStatisticsController@index')->name('reviewer.statistics');
+
 });
 
 require __DIR__.'/auth.php';
