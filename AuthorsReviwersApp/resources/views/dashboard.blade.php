@@ -17,6 +17,9 @@
                                 <th>Sadržaj</th>
                                 <th>Status</th>
                                 <th>Authors</th>
+                                @if(auth()->user()->role_id == 1)
+                                    <th>Action</th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
@@ -31,6 +34,20 @@
                                         {{ $author->name }}{{ $loop->last ? '' : ', ' }}
                                     @endforeach
                                 </td>
+                                @if(auth()->user()->role_id == 1)
+                                <td>
+                                    <form action="{{ route('article.approve', $article->id) }}" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <button type="submit">Approve</button>
+                                    </form>
+                                    <form action="{{ route('article.reject', $article->id) }}" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <button type="submit">Reject</button>
+                                    </form>
+                                </td>
+                            @endif
                             </tr>
                             @endforeach
                         </tbody>

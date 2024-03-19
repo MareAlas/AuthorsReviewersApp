@@ -21,6 +21,6 @@ class Reviewer extends Model
     */
     public function articles(): BelongsToMany
     {
-        return $this->belongsToMany(Article::class, 'reviewers_articles', 'reviewer_id', 'article_id');
+        return $this->belongsToMany(Article::class, 'reviewrs_articles', 'reviewer_id', 'article_id');
     }
 }

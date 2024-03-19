@@ -28,9 +28,9 @@ class Article extends Model
 
     /**
      * @return BelongsToMany
-    */
+     */
     public function reviewers(): BelongsToMany
     {
-        return $this->belongsToMany(Reviewer::class, 'reviewers_articles', 'article_id', 'reviewer_id');
+        return $this->belongsToMany(Reviewer::class, 'reviewrs_articles', 'article_id', 'reviewer_id');
     }
 }
