@@ -9,4 +9,6 @@ interface ArticleApprovalService
     public function approveArticle(Article $article, int $reviewerId);
 
     public function rejectArticle(Article $article, int $reviewerId);
+
+    public function publishArticle(Article $article,  int $reviewerId);
 }

@@ -16,12 +16,7 @@ class EloquentArticleApprovalService implements ArticleApprovalService
         try {
             $reviewer = Reviewer::findOrFail($reviewerId);
 
-            $approvedReviewersCount = $article->reviewers()->wherePivot('status', ArticleStatus::APPROVED)->count();
             $rejectedReviewersCount = $article->reviewers()->wherePivot('status', ArticleStatus::REJECTED)->count();
-
-            if ($approvedReviewersCount >= 2) {
-                throw new \Exception('The article has already been approved by 2 reviewers.');
-            }
 
             if ($rejectedReviewersCount > 0) {
                 throw new \Exception('The article has been rejected by at least one reviewer.');
@@ -58,4 +53,22 @@ class EloquentArticleApprovalService implements ArticleApprovalService
         }
     }
 
+    public function publishArticle(Article $article, int $reviewerId)
+    {
+        DB::beginTransaction();
+
+        try {
+            if ($article->status !== ArticleStatus::APPROVED) {
+                throw new \Exception('The article is not approved.');
+            }
+            $article->update(['status' => ArticleStatus::PUBLISHED]);
+
+            DB::commit();
+
+            return true;
+        } catch (\Exception $e) {
+            DB::rollback();
+            return false;
+        }
+    }
 }

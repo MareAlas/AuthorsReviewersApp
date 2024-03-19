@@ -9,4 +9,5 @@ final class ArticleStatus extends BaseEnum
     const PENDING = 'pending';
     const APPROVED = 'approved';
     const REJECTED = 'rejected';
+    const PUBLISHED = 'published';
 }

@@ -55,4 +55,23 @@ class ReviewerDashboardController extends Controller
             return response()->json(['error' => 'Failed to reject article'], 500);
         }
     }
+
+    /**
+     * Publish an approved article.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Article  $article
+     * @return \Illuminate\Http\Response
+     */
+    public function publishArticle(Request $request, Article $article)
+    {
+        $userId = auth()->user()->id;
+        $success = $this->articleApprovalService->publishArticle($article, $userId);
+
+        if ($success) {
+            return response()->json(['message' => 'Article published successfully'], 200);
+        } else {
+            return response()->json(['error' => 'Failed to publish article'], 500);
+        }
+    }
 }

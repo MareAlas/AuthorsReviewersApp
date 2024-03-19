@@ -36,11 +36,19 @@
                                 </td>
                                 @if(auth()->user()->role_id == 1)
                                 <td>
+                                    @if($article->status == 'pending')
                                     <form action="{{ route('article.approve', $article->id) }}" method="POST">
                                         @csrf
                                         @method('PUT')
                                         <button type="submit">Approve</button>
                                     </form>
+                                    @elseif($article->status == 'approved')
+                                    <form action="{{ route('articles.publish', $article) }}" method="POST">
+                                        @csrf
+                                        @method('POST')
+                                        <button type="submit">Publish</button>
+                                    </form>
+                                    @endif
                                     <form action="{{ route('article.reject', $article->id) }}" method="POST">
                                         @csrf
                                         @method('PUT')
