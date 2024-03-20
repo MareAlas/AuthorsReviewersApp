@@ -2,20 +2,21 @@
 
 namespace App\Services;
 
+use App\Enums\ArticleStatus;
 use Illuminate\Support\Facades\DB;
 
 class ReviewerStatisticsService
 {
     public function getReviewerStatistics()
     {
-        $reviewedArticles = DB::table('reviewers_articles')
+        $reviewedArticles = DB::table('reviewrs_articles')
             ->select('reviewer_id', DB::raw('COUNT(*) as total_reviewed_articles'))
             ->groupBy('reviewer_id')
             ->get();
 
-        $approvedArticles = DB::table('reviewers_articles')
+        $approvedArticles = DB::table('reviewrs_articles')
             ->select('reviewer_id', DB::raw('COUNT(*) as total_approved_articles'))
-            ->where('approved', true)
+            ->where('status', ArticleStatus::APPROVED)
             ->groupBy('reviewer_id')
             ->get();
 
