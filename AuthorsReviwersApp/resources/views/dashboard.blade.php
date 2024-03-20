@@ -3,7 +3,6 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Dashboard') }}
         </h2>
-        <div><a href="{{ route('reviewer.statistics') }}">Statistics</a></div>
     </x-slot>
 
     <div class="py-12">
@@ -64,5 +63,6 @@
                 </div>
             </div>
         </div>
+        <div><a href="{{ route('reviewer.statistics') }}">Statistics</a></div>
     </div>
 </x-app-layout>

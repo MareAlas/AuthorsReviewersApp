@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ReviewerDashboardController;
+use App\Http\Controllers\ReviewerStatisticsController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -16,9 +17,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::put('/articles/{article}/approve', [ReviewerDashboardController::class, 'approveArticle'])->name('article.approve');
     Route::put('/articles/{article}/reject', [ReviewerDashboardController::class, 'rejectArticle'])->name('article.reject');
-    Route::post('/articles/{article}/publish', [ReviewerDashboardController::class, 'publishArticle'])->name('articles.publish');
-    Route::get('/reviewer-statistics', 'ReviewerStatisticsController@index')->name('reviewer.statistics');
-
+    Route::put('/articles/{article}/publish', [ReviewerDashboardController::class, 'publishArticle'])->name('articles.publish');
+    Route::get('/reviewer-statistics', [ReviewerStatisticsController::class, 'index'])->name('reviewer.statistics');
 });
 
 require __DIR__.'/auth.php';
